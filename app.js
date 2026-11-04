@@ -42,7 +42,7 @@
       unit: 'A',
       decimals: 3,
       example: '150 = 0.150 A',
-      color: '#7b1fa2'
+      color: '#692387'
     },
     phaseAngle: {
       name: 'Phase Angle',
