@@ -11,11 +11,20 @@ This application is built with **React 18** and **Vite**, specifically designed 
 npm install
 ```
 
-### 2. Start Local Development Server
+### 2. Start the Development Server
 ```bash
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+Vite listens on all network interfaces at port `3000`. Open `http://<computer-LAN-IP>:3000` from another device on the same network. For example, if the computer's Wi-Fi IPv4 address is `192.168.20.28`, use `http://192.168.20.28:3000`.
+
+On Windows, allow inbound TCP port `3000` from the local subnet in an elevated PowerShell window if the firewall blocks connections:
+
+```powershell
+New-NetFirewallRule -DisplayName "Outdid Sync (Vite)" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 3000 -Profile Domain,Private -RemoteAddress LocalSubnet
+```
+
+The app is a client-side React application; it has no backend service or database. App state stays in the browser, and serial preferences are stored in that browser's local storage. Web Serial hardware access requires a secure context (HTTPS or localhost), so it is not available to other devices when they open the plain-HTTP LAN URL.
 
 ### 3. Production Build
 ```bash
