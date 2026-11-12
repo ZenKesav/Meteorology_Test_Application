@@ -16,12 +16,12 @@ npm install
 npm run dev
 ```
 
-Vite listens on all network interfaces at port `3000`. Open `http://<computer-LAN-IP>:3000` from another device on the same network. For example, if the computer's Wi-Fi IPv4 address is `192.168.20.28`, use `http://192.168.20.28:3000`.
+Vite listens on all network interfaces at port `3008`. Open `http://<computer-LAN-IP>:3008` from another device on the same network. For example, if the computer's Wi-Fi IPv4 address is `192.168.20.28`, use `http://192.168.20.28:3008`.
 
-On Windows, allow inbound TCP port `3000` from the local subnet in an elevated PowerShell window if the firewall blocks connections:
+On Windows, allow inbound TCP port `3008` from the local subnet in an elevated PowerShell window if the firewall blocks connections:
 
 ```powershell
-New-NetFirewallRule -DisplayName "Outdid Sync (Vite)" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 3000 -Profile Domain,Private -RemoteAddress LocalSubnet
+New-NetFirewallRule -DisplayName "Outdid Sync (Vite)" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 3008 -Profile Domain,Private -RemoteAddress LocalSubnet
 ```
 
 The app is a client-side React application; it has no backend service or database. App state stays in the browser, and serial preferences are stored in that browser's local storage. Web Serial hardware access requires a secure context (HTTPS or localhost), so it is not available to other devices when they open the plain-HTTP LAN URL.
@@ -31,15 +31,30 @@ The app is a client-side React application; it has no backend service or databas
 npm run build
 ```
 
+### Run with Docker
+
+From the project directory, build and start the production container:
+
+```bash
+docker compose up --build
+```
+
+Open [http://localhost:3008](http://localhost:3008). Stop the container with `Ctrl+C`; run `docker compose down` to remove it.
+
+The container serves the built app only; no backend or database is required. Web Serial access is provided by the browser, not Docker. Use a supported browser on the same computer at `localhost` to connect to serial hardware; accessing the app over plain HTTP from another device on the LAN does not provide the secure context required by Web Serial.
+
 ---
 
 ## 📂 Architecture Overview
 
 ```
 Zenmeter/
+├── Dockerfile                  # Multi-stage production image
+├── docker-compose.yml          # Local container on port 3008
+├── nginx.conf                  # Static app server configuration
 ├── index.html                 # Vite HTML entry point
 ├── package.json               # React 18, Vite dependencies & scripts
-├── vite.config.js             # Vite config with React plugin (Port 3000)
+├── vite.config.js             # Vite config with React plugin (Port 3008)
 └── src/
     ├── main.jsx               # React 18 DOM mount
     ├── App.jsx                # Main orchestrator (state, serial TX, metrology)
@@ -69,9 +84,9 @@ Zenmeter/
    - `Voltage` (uint32_t, 0.01 V/count, default: `23050` = `230.50 V`)
    - `Phase Current` (uint32_t, 0.001 A/count, default: `5250` = `5.250 A`)
    - `Neutral Current` (uint32_t, 0.001 A/count, default: `150` = `0.150 A`)
-   - `Phase Angle` (int16_t, 0.01°/count, default: `3000` = `30.00°`)
+   - `Phase Angle` (int16_t, 0.01°/count, default: `3008` = `30.00°`)
    - `Neutral Angle` (int16_t, 0.01°/count, default: `2850` = `28.50°`)
-   - `Power Factor` is displayed as `|cos(φ)|` derived from the phase angle. The PF-angle control and phase-angle control stay synchronized so the UART `PHASE_ANGLE` and `POWER_FACTOR_ANGLE` fields agree (default: `3000` = `30.00°`, PF `0.866`).
+   - `Power Factor` is displayed as `|cos(φ)|` derived from the phase angle. The PF-angle control and phase-angle control stay synchronized so the UART `PHASE_ANGLE` and `POWER_FACTOR_ANGLE` fields agree (default: `3008` = `30.00°`, PF `0.866`).
    - Numeric parameter inputs are raw protocol counts; calculations convert them once using each parameter's engineering scale (for example, `24000` voltage counts = `240 V`, `50` phase-current counts = `0.05 A`). Power and energy recalculate from the unrounded engineering values whenever counts change.
 
 2. **Rotary Knob Controls**:

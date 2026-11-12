@@ -1,0 +1,6 @@
+services:
+  meteorology-test-application:
+    build: .
+    ports:
+      - "3008:80"
+    restart: unless-stopped

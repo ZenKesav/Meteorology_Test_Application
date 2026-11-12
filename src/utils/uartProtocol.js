@@ -11,7 +11,8 @@ export function generateUartMessage(counts, params) {
   const nc = neutralCurrent === 0 ? '0' : neutralCurrent.toFixed(2);
   const pa = (counts.phaseAngle * params.phaseAngle.scale).toFixed(2);
   const na = (counts.neutralAngle * params.neutralAngle.scale).toFixed(2);
-  const pfa = (counts.powerFactorAngle * params.powerFactorAngle.scale).toFixed(2);
+  const pfa = (counts.powerFactorAngle * params.powerFactorAngle.scale).to
+  Fixed(2);
 
   return `{"command":"load","voltage":${v},"phase_current":${pc},"neutral_current":${nc},"phase_angle":${pa},"neutral_angle":${na},"power_factor_angle":${pfa}}\r\n`;
 }

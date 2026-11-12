@@ -49,11 +49,11 @@
       type: 'int16_t',
       min: -32768,
       max: 32767,
-      defaultCount: 3000,
+      defaultCount: 3008,
       scale: 0.01,
       unit: '°',
       decimals: 2,
-      example: '3000 = 30.00°',
+      example: '3008 = 30.00°',
       color: '#ef6c00'
     },
     neutralAngle: {
@@ -88,20 +88,20 @@
       voltage: 23050,
       phaseCurrent: 5250,
       neutralCurrent: 150,
-      phaseAngle: 3000,
+      phaseAngle: 3008,
       neutralAngle: 2850,
       powerFactorAngle: 2500
     },
     standard: {
-      voltage: 23000,
+      voltage: 23008,
       phaseCurrent: 5000,
       neutralCurrent: 50,
-      phaseAngle: 3000,
+      phaseAngle: 3008,
       neutralAngle: 2800,
       powerFactorAngle: 2500
     },
     light: {
-      voltage: 23000,
+      voltage: 23008,
       phaseCurrent: 500,
       neutralCurrent: 20,
       phaseAngle: 1000,
@@ -117,7 +117,7 @@
       powerFactorAngle: 4000
     },
     resistive: {
-      voltage: 23000,
+      voltage: 23008,
       phaseCurrent: 10000,
       neutralCurrent: 0,
       phaseAngle: 0,
@@ -125,7 +125,7 @@
       powerFactorAngle: 0
     },
     inductive: {
-      voltage: 23000,
+      voltage: 23008,
       phaseCurrent: 10000,
       neutralCurrent: 100,
       phaseAngle: 6000,
