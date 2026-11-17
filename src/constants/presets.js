@@ -1,6 +1,6 @@
 export const PRESET_VALUES = {
   default: {
-    voltage: 23050,
+    voltage: 23030,
     phaseCurrent: 5250,
     neutralCurrent: 150,
     phaseAngle: 3008,
